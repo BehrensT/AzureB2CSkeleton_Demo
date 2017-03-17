@@ -15,9 +15,13 @@ namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
         }
 
         // TODO: Protect this route with the sign in policy
+        [Authorize]
         public ActionResult Claims()
         {
             // TODO: Extract claims about the user
+            Claim displayName = ClaimsPrincipal.Current.FindFirst(ClaimsPrincipal.Current.Identities.First().NameClaimType);
+            ViewBag.DisplayName = displayName != null ? displayName.Value : string.Empty;
+            return View();
         }
 
         public ActionResult Error(string message)
